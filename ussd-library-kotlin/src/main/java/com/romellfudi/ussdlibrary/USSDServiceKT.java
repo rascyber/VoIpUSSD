@@ -73,11 +73,11 @@ public class USSDServiceKT extends AccessibilityService {
                 USSDController.Companion.getInstance().callbackInvoke.over(response);
             } else {
                 // sent option 1
-                if (USSDController.Companion.getInstance().getCallbackMessage() == null)
+                if (USSDController.Companion.getInstance().getCallbackInvoke() == null) {
                     USSDController.Companion.getInstance().callbackInvoke.responseInvoke(response);
-                else {
+                    USSDController.Companion.getInstance().callbackInvoke = null;
+                } else {
                     USSDController.Companion.getInstance().getCallbackMessage().invoke(response);
-                    USSDController.Companion.getInstance().setCallbackMessage(null);
                 }
             }
         }
@@ -96,10 +96,9 @@ public class USSDServiceKT extends AccessibilityService {
 
     /**
      * Cancel USSD
-     *
      */
     public static void cancel() {
-        clickOnButton(event,0);
+        clickOnButton(event, 0);
     }
 
     /**
